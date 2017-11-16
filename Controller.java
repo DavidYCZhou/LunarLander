@@ -3,20 +3,39 @@ import java.awt.event.MouseEvent;
 
 public class Controller {
     GameModel gameModel;
-    MouseAdapter editViewMouseAdapter;
+    EditView ev;
+    PlayView pv;
+    MouseAdapter editViewClickMouseAdapter;
+    MouseAdapter editViewMotionMouseAdapter;
 
     Controller(GameModel gm){
         gameModel = gm;
-        editViewMouseAdapter = new MouseAdapter() {
+        editViewClickMouseAdapter = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-            }
-
-            @Override
-            public void mouseDragged(MouseEvent e){
-                super.mouseDragged(e);
+                gameModel.selectItem(e.getX(), e.getY());
             }
         };
+        editViewMotionMouseAdapter = new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e){
+                if(gameModel.selectedItemIndex == -1) return;
+                // move selected item
+                gameModel.items.get(gameModel.selectedItemIndex).translate(e.getX(), e.getY());
+                updateAllViews();
+            }
+        };
+    }
+
+    public void addEditView(EditView v){
+        this.ev = v;
+    }
+    public void addPlayView(PlayView v){
+        this.pv = v;
+    }
+
+    public void updateAllViews(){
+        ev.repaint();
+        pv.repaint();
     }
 }

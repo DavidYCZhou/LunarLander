@@ -8,8 +8,11 @@ import javax.vecmath.*;
 
 public class GameModel extends Observable {
 
-    public GameModel(int fps, int width, int height, int peaks) {
+    // first one is landing pad
+    public ArrayList<Item> items;
+    public int selectedItemIndex = -1;
 
+    public GameModel(int fps, int width, int height, int peaks) {
         ship = new Ship(60, width/2, 50);
 
         worldBounds = new Rectangle2D.Double(0, 0, width, height);
@@ -21,6 +24,10 @@ public class GameModel extends Observable {
                 setChangedAndNotify();
             }
         });
+
+        items = new ArrayList<Item>();
+        items.add(new LandingPad());
+
     }
 
     // World
@@ -46,6 +53,16 @@ public class GameModel extends Observable {
         notifyObservers();
     }
 
+
+    public void selectItem(int x, int y) {
+        selectedItemIndex = -1;
+        for(int i = 0; i < items.size(); i ++){
+            if(items.get(i).hittest(x, y)){
+                selectedItemIndex = i;
+                break;
+            }
+        }
+    }
 }
 
 

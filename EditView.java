@@ -12,12 +12,11 @@ public class EditView extends JPanel implements Observer {
     public EditView(GameModel model, Controller controller) {
         gameModel = model;
         this.controller = controller;
-        LandingPad lp = new LandingPad();
 
-        // want the background to be black
+        // want the background to be light gray
         setBackground(Color.lightGray);
-
-
+        addMouseListener(controller.editViewClickMouseAdapter);
+        addMouseListener(controller.editViewMotionMouseAdapter);
 
     }
 
@@ -26,4 +25,15 @@ public class EditView extends JPanel implements Observer {
 
     }
 
+    @Override
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        // draw landing pad
+        LandingPad landingPad = (LandingPad) gameModel.items.get(0);
+        landingPad.draw(g2);
+
+        // draw terrain
+
+    }
 }
