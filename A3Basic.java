@@ -8,6 +8,7 @@ public class A3Basic extends JPanel {
     A3Basic() {
         // create the model
         GameModel model = new GameModel(60, 700, 200, 20);
+        Controller controller = new Controller(model);
 
         JPanel playView = new PlayView(model);
         JPanel editView = new EditView(model);
