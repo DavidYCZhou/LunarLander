@@ -15,8 +15,10 @@ public class EditView extends JPanel implements Observer {
 
         // want the background to be light gray
         setBackground(Color.lightGray);
+        // TODO: WHY THIS DOESNT WORK :(
+        setPreferredSize(new Dimension((int)gameModel.worldBounds.width, (int)gameModel.worldBounds.height));
         addMouseListener(controller.editViewClickMouseAdapter);
-        addMouseListener(controller.editViewMotionMouseAdapter);
+        addMouseMotionListener(controller.editViewMotionMouseAdapter);
 
     }
 
@@ -29,11 +31,30 @@ public class EditView extends JPanel implements Observer {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         // draw landing pad
         LandingPad landingPad = (LandingPad) gameModel.items.get(0);
         landingPad.draw(g2);
-
         // draw terrain
+        int[] terrainX = new int[22];
+        int[] terrainY = new int[22];
+        // starting point
+        terrainX[0] = 0;
+        terrainY[0] = 200;
+        for(int i = 1; i < gameModel.items.size(); i ++) {
+            Peak it = (Peak) gameModel.items.get(i);
+            terrainX[i] = it.x + it.radius;
+            terrainY[i] = it.y + it.radius;
+        }
 
+        // ending point
+        terrainX[21] = 700;
+        terrainY[21] = 200;
+        g2.setColor(Color.DARK_GRAY);
+        g2.fillPolygon(terrainX, terrainY, 22);
+
+        for(Item it: gameModel.items){
+            it.draw(g2);
+        }
     }
 }

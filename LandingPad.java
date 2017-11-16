@@ -12,6 +12,7 @@ public class LandingPad extends Item{
         this.color = Color.RED;
     }
 
+    @Override
     public void draw(Graphics2D g2){
         g2.setColor(color);
         g2.fillRect(x, y, width, height);

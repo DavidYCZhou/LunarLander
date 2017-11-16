@@ -5,6 +5,8 @@ public class Controller {
     GameModel gameModel;
     EditView ev;
     PlayView pv;
+    double dragStartedX;
+    double dragStartedY;
     MouseAdapter editViewClickMouseAdapter;
     MouseAdapter editViewMotionMouseAdapter;
 
@@ -12,8 +14,22 @@ public class Controller {
         gameModel = gm;
         editViewClickMouseAdapter = new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 gameModel.selectItem(e.getX(), e.getY());
+                if(gameModel.selectedItemIndex != -1){
+                    dragStartedX = e.getX();
+                    dragStartedY = e.getY();
+                }
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.getClickCount() == 2){
+                    LandingPad l = (LandingPad) gameModel.items.get(0);
+                    double offsetX = e.getX() - (l.x + l.width / 2);
+                    double offsetY = e.getY() - (l.y + l.height / 2);
+                    l.translate(offsetX, offsetY);
+                    updateAllViews();
+                }
             }
         };
         editViewMotionMouseAdapter = new MouseAdapter() {
@@ -21,7 +37,10 @@ public class Controller {
             public void mouseDragged(MouseEvent e){
                 if(gameModel.selectedItemIndex == -1) return;
                 // move selected item
-                gameModel.items.get(gameModel.selectedItemIndex).translate(e.getX(), e.getY());
+                Item selected = gameModel.items.get(gameModel.selectedItemIndex);
+                selected.translate(e.getX() - dragStartedX, e.getY() - dragStartedY);
+                dragStartedX = e.getX();
+                dragStartedY = e.getY();
                 updateAllViews();
             }
         };

@@ -20,4 +20,6 @@ public class Item {
         x += mx;
         y += my;
     }
+
+    public void draw(Graphics2D g2) { }
 }

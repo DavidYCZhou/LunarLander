@@ -28,6 +28,13 @@ public class GameModel extends Observable {
         items = new ArrayList<Item>();
         items.add(new LandingPad());
 
+        // add peaks
+        double offset = (width + 30 - 20 * 30)/19 + 30;
+        double begin = -15;
+        for(int i = 0; i < 20; i++){
+            items.add(new Peak((int)begin, height/2));
+            begin += offset;
+        }
     }
 
     // World
