@@ -11,12 +11,12 @@ public class EditView extends JPanel implements Observer {
     Controller controller;
     public EditView(GameModel model, Controller controller) {
         gameModel = model;
+        model.addObserver(this);
         this.controller = controller;
 
-        // want the background to be light gray
-        setBackground(Color.lightGray);
-        // TODO: WHY THIS DOESNT WORK :(
-        setPreferredSize(new Dimension((int)gameModel.worldBounds.width, (int)gameModel.worldBounds.height));
+        // want the background to be black
+        setBackground(Color.black);
+
         addMouseListener(controller.editViewClickMouseAdapter);
         addMouseMotionListener(controller.editViewMotionMouseAdapter);
 
@@ -24,7 +24,7 @@ public class EditView extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
+        repaint();
     }
 
     @Override
@@ -32,6 +32,8 @@ public class EditView extends JPanel implements Observer {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(Color.lightGray);
+        g2.fillRect(0, 0, (int)gameModel.worldBounds.width, (int)gameModel.worldBounds.height);
         // draw landing pad
         LandingPad landingPad = (LandingPad) gameModel.items.get(0);
         landingPad.draw(g2);
@@ -43,8 +45,8 @@ public class EditView extends JPanel implements Observer {
         terrainY[0] = 200;
         for(int i = 1; i < gameModel.items.size(); i ++) {
             Peak it = (Peak) gameModel.items.get(i);
-            terrainX[i] = it.x + it.radius;
-            terrainY[i] = it.y + it.radius;
+            terrainX[i] = (int)it.x + it.radius;
+            terrainY[i] = (int)it.y + it.radius;
         }
 
         // ending point

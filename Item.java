@@ -1,16 +1,8 @@
 import java.awt.*;
 
-public class Item {
+public class Item implements Cloneable {
     public Color color;
-    public int x, y;
-    public boolean isSelected = false;
-
-    public void select(){
-        isSelected = true;
-    }
-    public void unselect(){
-        isSelected = false;
-    }
+    public double x, y;
 
     public boolean hittest(double mx, double my){
         return false;
@@ -22,4 +14,9 @@ public class Item {
     }
 
     public void draw(Graphics2D g2) { }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

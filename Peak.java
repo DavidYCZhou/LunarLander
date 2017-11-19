@@ -5,7 +5,7 @@ import java.lang.Math;
 public class Peak extends Item {
     int radius = 15;
 
-    public Peak(int x, int y){
+    public Peak(double x, double y){
         this.x = x;
         Random rand = new Random();
         this.y = y + (rand.nextInt(80) + 1);
@@ -13,13 +13,13 @@ public class Peak extends Item {
 
     @Override
     public void draw(Graphics2D g2){
-        g2.setColor(Color.BLACK);
-        g2.drawOval(x, y, radius * 2, radius * 2);
+        g2.setColor(Color.gray);
+        g2.drawOval((int)x, (int)y, radius * 2, radius * 2);
     }
     @Override
     public boolean hittest(double mx, double my){
-        int centerX = x + radius;
-        int centerY = y + radius;
+        double centerX = x + radius;
+        double centerY = y + radius;
         return distance2D(mx, centerX, my, centerY) <= radius;
     }
 

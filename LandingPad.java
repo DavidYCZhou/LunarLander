@@ -11,11 +11,20 @@ public class LandingPad extends Item{
         this.y = 100;
         this.color = Color.RED;
     }
+    @Override
+    public void translate(double mx, double my){
+        double newX = x + mx;
+        double newY = y + my;
+        if(newX + width >= 700 || newY + height >= 200 || newX <= 0 || newY <= 0) return;
+        x = (int)newX;
+        y = (int)newY;
+
+    }
 
     @Override
     public void draw(Graphics2D g2){
         g2.setColor(color);
-        g2.fillRect(x, y, width, height);
+        g2.fillRect((int)x, (int)y, width, height);
     }
 
     @Override
