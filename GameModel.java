@@ -11,11 +11,14 @@ public class GameModel extends Observable {
 
     private UndoManager undoManager;
     // first one is landing pad
-    public ArrayList<Item> items;
-    public ArrayList<Item> backUp;
-    public int selectedItemIndex = -1;
-    public final int playScale = 3;
-    public final int originalScale = 1;
+    ArrayList<Item> items;
+    ArrayList<Item> backUp;
+    int selectedItemIndex = -1;
+    final int playScale = 3;
+    final int originalScale = 1;
+    // 0: playing, 1: crashed, 2: safe, 3: pause
+    int gameStatus = 0;
+    private boolean paused = false;
 
     public GameModel(int fps, int width, int height, int peaks) {
         undoManager = new UndoManager();
@@ -136,6 +139,23 @@ public class GameModel extends Observable {
         return result;
     }
 
+    public void pause() {
+        paused = !paused;
+        gameStatus = paused? 3: 0;
+        ship.setPaused(paused);
+    }
+
+    public void crash() {
+        gameStatus = 1;
+        ship.setPaused(true);
+        setChangedAndNotify();
+    }
+
+    public void land() {
+        gameStatus = 2;
+        ship.setPaused(true);
+        setChangedAndNotify();
+    }
 }
 
 

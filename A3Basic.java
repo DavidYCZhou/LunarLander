@@ -10,10 +10,8 @@ public class A3Basic extends JPanel {
         GameModel model = new GameModel(60, 700, 200, 20);
         Controller controller = new Controller(model);
 
-        JPanel playView = new PlayView(model);
+        JPanel playView = new PlayView(model, controller);
         JPanel editView = new EditView(model,controller);
-        controller.addEditView((EditView) editView);
-        controller.addPlayView((PlayView) playView);
 
         editView.setPreferredSize(new Dimension(700, 200));
 

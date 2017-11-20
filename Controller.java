@@ -1,14 +1,13 @@
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class Controller {
-    GameModel gameModel;
-    EditView ev;
-    PlayView pv;
-    double dragStartedX;
-    double dragStartedY;
+    private GameModel gameModel;
+    private double dragStartedX;
+    private double dragStartedY;
     MouseAdapter editViewClickMouseAdapter;
     MouseAdapter editViewMotionMouseAdapter;
+
+    KeyAdapter playViewKeyAdapter;
 
     Controller(GameModel gm){
         gameModel = gm;
@@ -52,13 +51,43 @@ public class Controller {
                 updateAllViews();
             }
         };
-    }
 
-    public void addEditView(EditView v){
-        this.ev = v;
-    }
-    public void addPlayView(PlayView v){
-        this.pv = v;
+        playViewKeyAdapter = new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                char input = e.getKeyChar();
+                switch (input){
+                    case 'w':
+                        if(gameModel.ship.getFuel() == 0) break;
+                        gameModel.ship.thrustUp();
+                        break;
+                    case 'a':
+                        if(gameModel.ship.getFuel() == 0) break;
+                        gameModel.ship.thrustLeft();
+                        break;
+                    case 's':
+                        if(gameModel.ship.getFuel() == 0) break;
+                        gameModel.ship.thrustDown();
+                        break;
+                    case 'd':
+                        if(gameModel.ship.getFuel() == 0) break;
+                        gameModel.ship.thrustRight();
+                        break;
+                    case ' ':
+                        gameModel.pause();
+                        break;
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+            }
+        };
+
+
+
     }
 
     public void updateAllViews(){

@@ -13,24 +13,24 @@ public class LandingPad extends Item{
     }
     @Override
     public void translate(double mx, double my){
-        double newX = x + mx;
-        double newY = y + my;
-        if(newX + width >= 700 * scale || newY + height >= 200 * scale || newX <= 0 || newY <= 0) return;
-        x = (int)newX;
-        y = (int)newY;
+        double newX = x + mx + translateX;
+        double newY = y + my + translateY;
+        if(newX + width >= 700  || newY + height >= 200 || newX <= 0 || newY <= 0) return;
+        translateX += mx;
+        translateY += my;
 
     }
 
     @Override
     public void draw(Graphics2D g2){
         g2.setColor(color);
-        g2.fillRect((int) (x * scale), (int) (y * scale), width * scale, height * scale);
+        g2.fillRect((int) (x * scale + translateX), (int) ((y * scale)  + translateY), width * scale, height * scale);
     }
 
     @Override
     public boolean hittest(double mx, double my){
-        double offsetx = mx - x;
-        double offsety = my - y;
+        double offsetx = mx - x - translateX;
+        double offsety = my - y - translateY;
         return offsetx <= 40 && offsetx >= 0 && offsety <= 10 && offsety >= 0;
     }
 

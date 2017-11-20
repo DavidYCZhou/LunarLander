@@ -13,19 +13,22 @@ public class Peak extends Item {
 
     @Override
     public void draw(Graphics2D g2){
+        // dont have to scale cuz this is never drawn in playView
         g2.setColor(Color.gray);
-        g2.drawOval((int)x * scale, (int)y * scale, radius * 2, radius * 2);
+        g2.drawOval((int)x, (int)(y + translateY), radius * 2, radius * 2);
     }
     @Override
     public boolean hittest(double mx, double my){
         double centerX = x + radius;
-        double centerY = y + radius;
+        double centerY = y + translateY + radius;
         return distance2D(mx, centerX, my, centerY) <= radius;
     }
 
     @Override
     public void translate(double mx, double my){
-        y += my;
+        double temp = y + translateY + my;
+        if(temp >= 185 || temp <= -15) return;
+        translateY += my;
     }
 
     private double distance2D(double p1x, double p2x, double p1y, double p2y){

@@ -3,6 +3,9 @@ import java.awt.*;
 public class Item implements Cloneable {
     public Color color;
     public double x, y;
+    double translateX = 0;
+    double translateY = 0;
+
     int scale = 1;
 
     public boolean hittest(double mx, double my){
@@ -10,8 +13,8 @@ public class Item implements Cloneable {
     }
 
     public void translate(double mx, double my){
-        x += mx;
-        y += my;
+        translateX += mx;
+        translateY += my;
     }
 
     public void draw(Graphics2D g2) { }

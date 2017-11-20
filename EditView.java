@@ -43,8 +43,8 @@ public class EditView extends JPanel implements Observer {
         terrainY[0] = 200;
         for(int i = 1; i < gameModel.items.size(); i ++) {
             Peak it = (Peak) gameModel.items.get(i);
-            terrainX[i] = (int)it.x + it.radius;
-            terrainY[i] = (int)it.y + it.radius;
+            terrainX[i] = (int)(it.x + it.translateX + it.radius);
+            terrainY[i] = (int)(it.y + it.translateY + it.radius);
         }
 
         // ending point
