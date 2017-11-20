@@ -9,9 +9,9 @@ public class MessageView extends JPanel implements Observer {
 
     GameModel gameModel;
     // status messages for game
-    JLabel fuel = new JLabel("fuel");
-    JLabel speed = new JLabel("speed");
-    JLabel message = new JLabel("message");
+    JLabel fuel = new JLabel();
+    JLabel speed = new JLabel();
+    JLabel message = new JLabel();
 
     public MessageView(GameModel model) {
 
@@ -29,6 +29,26 @@ public class MessageView extends JPanel implements Observer {
         for (Component c: this.getComponents()) {
             c.setForeground(Color.WHITE);
             c.setPreferredSize(new Dimension(100, 20));
+        }
+
+        double currentFuel = gameModel.ship.getFuel();
+        double currentSpeed = gameModel.ship.getSpeed();
+        if(currentFuel < 10) fuel.setForeground(Color.RED);
+        if(currentSpeed < gameModel.ship.getSafeLandingSpeed()){
+            speed.setForeground(Color.GREEN);
+        }else{
+            speed.setForeground(Color.white);
+        }
+        fuel.setText("fuel: " + currentFuel);
+        speed.setText("speed: " + new DecimalFormat("#0.00").format(currentSpeed));
+        if(gameModel.gameStatus == 1){
+            message.setText("CRASH");
+        }else if(gameModel.gameStatus == 2){
+            message.setText("LANDED!");
+        }else if(gameModel.gameStatus == 3){
+            message.setText("(Paused)");
+        }else{
+            message.setText("");
         }
     }
 
@@ -51,10 +71,11 @@ public class MessageView extends JPanel implements Observer {
         }else if(gameModel.gameStatus == 2){
             message.setText("LANDED!");
         }else if(gameModel.gameStatus == 3){
-            message.setText("Paused");
+            message.setText("(Paused)");
         }else{
             message.setText("");
         }
 
     }
+
 }

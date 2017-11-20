@@ -34,6 +34,7 @@ public class GameModel extends Observable {
             }
         });
 
+        pause();
         items = new ArrayList<Item>();
         items.add(new LandingPad());
 
