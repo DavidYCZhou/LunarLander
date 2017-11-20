@@ -73,7 +73,11 @@ public class PlayView extends JPanel implements Observer {
                 (int)((lp.y + lp.translateY) * playScale + translateY) ,
                 lp.width * playScale ,
                 lp.height * playScale);
-        g2.setColor(lp.color);
+        if(gameModel.gameStatus == 2) {
+            g2.setColor(Color.GREEN);
+        }else{
+            g2.setColor(lp.color);
+        }
         g2.fillRect(landingPad.x, landingPad.y, landingPad.width, landingPad.height);
 
         // draw ship in the end

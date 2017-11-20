@@ -1,3 +1,4 @@
+import javax.vecmath.Point2d;
 import java.awt.event.*;
 
 public class Controller {
@@ -75,7 +76,15 @@ public class Controller {
                         gameModel.ship.thrustRight();
                         break;
                     case ' ':
-                        gameModel.pause();
+                        if(gameModel.gameStatus == 2 ||
+                                gameModel.gameStatus == 1){
+                            // reset the game
+                            gameModel.ship.reset(new Point2d(350, 50));
+                            gameModel.gameStatus = 0;
+                            gameModel.setChangedAndNotify();
+                        }else{
+                            gameModel.pause();
+                        }
                         break;
                 }
             }
