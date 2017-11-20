@@ -14,6 +14,8 @@ public class GameModel extends Observable {
     public ArrayList<Item> items;
     public ArrayList<Item> backUp;
     public int selectedItemIndex = -1;
+    public final int playScale = 3;
+    public final int originalScale = 1;
 
     public GameModel(int fps, int width, int height, int peaks) {
         undoManager = new UndoManager();

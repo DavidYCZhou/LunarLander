@@ -25,10 +25,10 @@ public class Controller {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(e.getClickCount() == 2){
-                    gameModel.rememberStartState();
                     LandingPad l = (LandingPad) gameModel.items.get(0);
                     double offsetX = e.getX() - (l.x + l.width / 2);
                     double offsetY = e.getY() - (l.y + l.height / 2);
+                    gameModel.rememberStartState();
                     l.translate(offsetX, offsetY);
                     gameModel.addUndoableEdit();
                     updateAllViews();

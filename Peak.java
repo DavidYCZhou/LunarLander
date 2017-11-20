@@ -14,7 +14,7 @@ public class Peak extends Item {
     @Override
     public void draw(Graphics2D g2){
         g2.setColor(Color.gray);
-        g2.drawOval((int)x, (int)y, radius * 2, radius * 2);
+        g2.drawOval((int)x * scale, (int)y * scale, radius * 2, radius * 2);
     }
     @Override
     public boolean hittest(double mx, double my){

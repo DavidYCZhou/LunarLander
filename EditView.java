@@ -34,9 +34,7 @@ public class EditView extends JPanel implements Observer {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(Color.lightGray);
         g2.fillRect(0, 0, (int)gameModel.worldBounds.width, (int)gameModel.worldBounds.height);
-        // draw landing pad
-        LandingPad landingPad = (LandingPad) gameModel.items.get(0);
-        landingPad.draw(g2);
+
         // draw terrain
         int[] terrainX = new int[22];
         int[] terrainY = new int[22];
